@@ -1,0 +1,19 @@
+{
+	"name" : "programie/squidrewrite",
+	"description" : "A simple rewrite script for Squid3",
+	"minimum-stability" : "stable",
+	"license" : "",
+	"authors" :
+	[
+		{
+			"name" : "Michael Wieland",
+			"email" : "squidrewrite@selfcoders.com",
+			"homepage" : "http://selfcoders.com",
+			"role" : "Developer"
+		}
+	],
+	"require" :
+	{
+		"programie/pini": "dev-master"
+	}
+}

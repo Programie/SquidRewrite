@@ -1,0 +1,89 @@
+#! /usr/bin/env php
+<?php
+require_once __DIR__ . "/../includes/Engine.class.php";
+require_once __DIR__ . "/../vendor/autoload.php";
+
+function writeLog($string)
+{
+	echo "[" . date("Y-m-d H:i:s") . "] " . $string . "\n";
+}
+
+function loadEngines($engines)
+{
+	$path = __DIR__ . "/../engines";
+
+	$instances = array();
+
+	foreach ($engines as $engine)
+	{
+		writeLog("Loading engine: " . $engine);
+
+		$file = $path . "/" . $engine . ".php";
+
+		if (!file_exists($file))
+		{
+			writeLog("No such file or directory: " . $file);
+			continue;
+		}
+
+		require_once $file;
+
+		if (!class_exists($engine))
+		{
+			writeLog("Class not found: " . $engine);
+			continue;
+		}
+
+		$config = new Pini($path . "/" . $engine . ".ini");
+
+		$instances[] = new $engine($config);
+	}
+
+	return $instances;
+}
+
+$engineNames = $argv;
+array_shift($engineNames);// The first element is the script name
+
+$engines = loadEngines($engineNames);
+
+if (empty($engines))
+{
+	die("No engines loaded!");
+}
+
+while ($line = fgets(STDIN))
+{
+	list($url, $fqdn, $ident, $method) = explode(" ", trim($line));
+
+	/**
+	 * @var $engine Engine
+	 */
+	foreach ($engines as $engine)
+	{
+		$engine->url = $url;
+		$engine->fqdn = $fqdn;
+		$engine->ident = $ident;
+		$engine->method = $method;
+
+		// Process the URL using this engine (returns true on success or false if another engine should be tried)
+		if ($engine->process())
+		{
+			$url = $engine->url;
+			$fqdn = $engine->fqdn;
+			$ident = $engine->ident;
+			$method = $engine->method;
+			break;
+		}
+	}
+
+	$response = array
+	(
+		$url,
+		$fqdn,
+		$ident,
+		$method
+	);
+
+	echo implode(" ", $response) . "\n";
+}

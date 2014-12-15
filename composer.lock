@@ -1,0 +1,55 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "ca441dd7c62b404bc3a0c95cfb615101",
+    "packages": [
+        {
+            "name": "programie/pini",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Programie/Pini.git",
+                "reference": "00e0d53e103779465b6dde9958a5b9f671df4487"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Programie/Pini/zipball/00e0d53e103779465b6dde9958a5b9f671df4487",
+                "reference": "00e0d53e103779465b6dde9958a5b9f671df4487",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.3"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "Pini.class.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Michael Wieland",
+                    "email": "pini@selfcoders.com",
+                    "homepage": "http://selfcoders.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A simple PHP class for reading and writing ini files",
+            "time": "2014-12-15 18:02:50"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "programie/pini": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}
