@@ -21,14 +21,34 @@ class Rewriter
 	{
 		$this->config = new Pini(__DIR__ . "/../config/config.ini");
 
-		$this->logFile = $this->config->getValue("log", "path");
+		$logSection = $this->config->getSection("log");
+		if ($logSection)
+		{
+			$pathProperty = $logSection->getProperty("path");
+			if ($pathProperty)
+			{
+				$this->logFile = $pathProperty->value;
+			}
+		}
 	}
 
 	private function loadEngines()
 	{
 		$this->engines = array();
 
-		foreach ($this->config->getValue("engines", "engine") as $engine)
+		$enginesSection = $this->config->getSection("engines");
+		if (!$enginesSection)
+		{
+			return;
+		}
+
+		$engineProperty = $enginesSection->getProperty("engine");
+		if (!$engineProperty)
+		{
+			return;
+		}
+
+		foreach ($engineProperty->value as $engine)
 		{
 			$this->writeLog("Loading engine: " . $engine);
 

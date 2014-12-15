@@ -18,12 +18,36 @@ class PS3Proxy extends Engine
 	{
 		parent::__construct($config);
 
-		$this->pdo = new PDO($config->getValue("database", "dsn"), $config->getValue("database", "username"), $config->getValue("database", "password"));
-		$this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
-		$this->pdo->query("SET NAMES utf8");
+		$databaseSection = $config->getSection("database");
+		if ($databaseSection)
+		{
+			$dsn = $databaseSection->getProperty("dsn");
+			$username = $databaseSection->getProperty("username");
+			$password = $databaseSection->getProperty("password");
 
-		$this->pkgPath = $config->getValue("paths", "pkg");
-		$this->localUrl = $config->getValue("paths", "localUrl");
+			if ($dsn and $username and $password)
+			{
+				$this->pdo = new PDO($dsn->value, $username->value, $password->value);
+				$this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
+				$this->pdo->query("SET NAMES utf8");
+			}
+		}
+
+		$pathsSection = $config->getSection("paths");
+		if ($pathsSection)
+		{
+			$pkgProperty = $pathsSection->getProperty("pkg");
+			if ($pkgProperty)
+			{
+				$this->pkgPath = $pkgProperty->value;
+			}
+
+			$localUrlProperty = $pathsSection->getProperty("localUrl");
+			if ($localUrlProperty)
+			{
+				$this->localUrl = $localUrlProperty->value;
+			}
+		}
 	}
 
 	public function process()
@@ -41,24 +65,27 @@ class PS3Proxy extends Engine
 		}
 		else
 		{
-			$query = $this->pdo->prepare("SELECT `id` FROM `files` WHERE `url` = :url");
-
-			$query->execute(array
-			(
-				":url" => $this->url
-			));
-
-			if (!$query->rowCount())
+			if ($this->pdo)
 			{
-				$query = $this->pdo->prepare("
-					INSERT INTO `files`
-					SET `url` = :url
-				");
+				$query = $this->pdo->prepare("SELECT `id` FROM `files` WHERE `url` = :url");
 
 				$query->execute(array
 				(
 					":url" => $this->url
 				));
+
+				if (!$query->rowCount())
+				{
+					$query = $this->pdo->prepare("
+						INSERT INTO `files`
+						SET `url` = :url
+					");
+
+					$query->execute(array
+					(
+						":url" => $this->url
+					));
+				}
 			}
 		}
 

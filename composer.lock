@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Programie/Pini.git",
-                "reference": "00e0d53e103779465b6dde9958a5b9f671df4487"
+                "reference": "c6a1b6961fbfdbcee61dfe0b25292219b0dbc99a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Programie/Pini/zipball/00e0d53e103779465b6dde9958a5b9f671df4487",
-                "reference": "00e0d53e103779465b6dde9958a5b9f671df4487",
+                "url": "https://api.github.com/repos/Programie/Pini/zipball/c6a1b6961fbfdbcee61dfe0b25292219b0dbc99a",
+                "reference": "c6a1b6961fbfdbcee61dfe0b25292219b0dbc99a",
                 "shasum": ""
             },
             "require-dev": {
@@ -39,7 +39,7 @@
                 }
             ],
             "description": "A simple PHP class for reading and writing ini files",
-            "time": "2014-12-15 18:02:50"
+            "time": "2014-12-15 23:38:01"
         }
     ],
     "packages-dev": [],
