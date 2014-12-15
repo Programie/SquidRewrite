@@ -28,12 +28,12 @@ class PS3Proxy extends Engine
 
 	public function process()
 	{
-		if (!preg_match("|^http://zeus\.dl\.playstation\.net/cdn/(.*)/(.*)/(.*)\.pkg|", $this->url, $matches))
+		if (!preg_match("|^http://(.*)\.dl\.playstation\.net/cdn/(.*)/(.*)/(.*)\.pkg|", $this->url, $matches))
 		{
 			return false;
 		}
 
-		$file = $matches[3] . ".pkg";
+		$file = $matches[4] . ".pkg";
 
 		if (file_exists($this->pkgPath . "/" . $file))
 		{
