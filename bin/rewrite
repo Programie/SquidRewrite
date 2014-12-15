@@ -62,9 +62,9 @@ while ($line = fgets(STDIN))
 {
 	$line = trim($line);
 
-	writeLog("Input: " . $line);
-
 	list($url, $fqdn, $ident, $method) = explode(" ", $line);
+
+	writeLog("Input: url = " . $url . ", fqdn = " . $fqdn . ", ident = " . $ident . ", method = " . $method);
 
 	/**
 	 * @var $engine Engine
@@ -99,9 +99,7 @@ while ($line = fgets(STDIN))
 		$method
 	);
 
-	$line = implode(" ", $response);
+	writeLog("Output: url = " . $url . ", fqdn = " . $fqdn . ", ident = " . $ident . ", method = " . $method);
 
-	writeLog("Output: " . $line);
-
-	echo $line;
+	echo implode(" ", $response);
 }
