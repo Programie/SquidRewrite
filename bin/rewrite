@@ -8,5 +8,5 @@ $rewriter->reload();
 
 while ($line = fgets(STDIN))
 {
-	echo $rewriter->processLine($line);
+	echo $rewriter->processLine($line) . "\n";
 }
