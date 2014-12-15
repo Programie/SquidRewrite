@@ -42,7 +42,7 @@ class PS3Proxy extends Engine
 
 		if (file_exists($this->pkgPath . "/" . $file))
 		{
-			$this->url = $this->localUrl . $file;
+			$this->url = $this->localUrl . "/" . $file;
 		}
 		else
 		{
