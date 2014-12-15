@@ -28,11 +28,6 @@ class PS3Proxy extends Engine
 
 	public function process()
 	{
-		if ($this->method != "GET")
-		{
-			return false;
-		}
-
 		if (!preg_match("|^http://zeus\.dl\.playstation\.net/cdn/(.*)/(.*)/(.*)\.pkg|", $this->url, $matches))
 		{
 			return false;
