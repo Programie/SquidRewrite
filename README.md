@@ -1,3 +1,3 @@
-SquidRewrite
+# SquidRewrite
 
-A simple rewrite script for Squid3
+A simple rewrite script for Squid3.
