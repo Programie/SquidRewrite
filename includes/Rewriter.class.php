@@ -30,6 +30,16 @@ class Rewriter
 				$this->logFile = $pathProperty->value;
 			}
 		}
+
+		$timeoutSection = $this->config->getSection("timeout");
+		if ($timeoutSection)
+		{
+			$streamProperty = $timeoutSection->getProperty("stream");
+			if ($streamProperty)
+			{
+				stream_set_timeout(STDIN, $streamProperty->value);
+			}
+		}
 	}
 
 	private function loadEngines()
